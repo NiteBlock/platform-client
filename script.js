@@ -1,7 +1,7 @@
 const objects = ["name", "type", "_id"]
 const container = document.querySelector("#devicelistonly")
 console.log("here")
-fetch("http://platform-device.herokuapp.com/list-devices")
+fetch("http://localhost:8000/list-devices")
     .then(function (r) {
         return r.json()
     })
@@ -23,17 +23,18 @@ fetch("http://platform-device.herokuapp.com/list-devices")
         })
     })
 
+
 const search = document.querySelector("#search")
 
 search.addEventListener("keypress", function () {
     const container = document.querySelector("#devicelistonly")
     console.log("here")
-    fetch("http://platform-device.herokuapp.com/list-devices?name=" + search.value)
+    fetch("http://localhost:8000/list-devices?name=" + search.value)
         .then(function (r) {
             return r.json()
         })
         .then(function (data) {
-            container.innerHTML = "<tr><th>Name</th><th>Type</th> <th>Id</th></tr>";        
+            container.innerHTML = "<tr><th>Name</th><th>Type</th> <th>Id</th></tr>";
             data.forEach(function (item) {
 
                 let deviceHolder = document.createElement("tr")
@@ -56,24 +57,34 @@ const find = document.querySelector("#device_id")
 find.addEventListener("submit", function (e) {
     e.preventDefault()
     console.log("here")
-    fetch("http://platform-device.herokuapp.com/find-by-id?id=" + document.querySelector("#find_with_id").value)
+    fetch("http://localhost:8000/find-by-id?id=" + document.querySelector("#find_with_id").value)
         .then(function (r) {
             return r.json()
         })
         .then(function (item) {
             if (item.name && item.type && item._id) {
-                console.log(item)
                 let deviceHolder = document.querySelector("#device-info")
                 deviceHolder.textContent = makeTextContent(item)
 
 
-                idcont.appendChild(deviceHolder)
             } else {
                 let deviceHolder = document.querySelector("#device-info")
                 deviceHolder.textContent = "Thats a bad id."
             }
         })
-    })
+        fetch("http://localhost:8000/data-by-device?id=" + document.querySelector("#find_with_id").value)
+        .then(function (r) {
+            return r.json()
+        })
+        .then(function (item) {
+            console.log(item)
+            if(item[0].value) {
+                let deviceHolder = document.querySelector("#device-info")
+                deviceHolder.textContent += "  Value: " + item[0].value
+
+            }
+        })
+})
 
 function makeTextContent(item) {
     type = item.type.replace(/\w\S*/g, function (word) {
@@ -81,3 +92,33 @@ function makeTextContent(item) {
     });
     return `Name: ${item.name}   Type: ${type}    ID: ${item._id}`
 }
+
+
+const saveForm = document.querySelector("#save-data")
+saveForm.addEventListener("submit", function (e) {
+    e.preventDefault()
+    const deviceId = document.querySelector("#device-id-save").value
+    const value = document.querySelector("#device-value").value
+
+    const requestData = {
+        deviceId: deviceId,
+        value: value
+    }
+
+    const json = JSON.stringify(requestData)
+
+    const request = {
+        method: "POST",
+        body: json,
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }
+    console.log(request)
+    fetch("http://localhost:8000/save-data", request).then(function (response) {
+        return response.text()
+    }).then(function (data) {
+        console.log(data)
+    })
+
+})
