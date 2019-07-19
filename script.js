@@ -1,4 +1,4 @@
-const objects = ["name", "type", "_id"]
+const objects = ["name", "type", "status","colour", "_id"]
 const container = document.querySelector("#devicelistonly")
 console.log("here")
 fetch("http://localhost:8000/list-devices")
@@ -118,6 +118,59 @@ saveForm.addEventListener("submit", function (e) {
     fetch("http://localhost:8000/save-data", request).then(function (response) {
         return response.text()
     }).then(function (data) {
+        console.log(data)
+    })
+
+})
+
+const updateForm = document.querySelector("#update-device")
+updateForm.addEventListener("submit", function(e){
+    e.preventDefault()
+    const deviceId =  document.querySelector("#device-id-status").value
+    const deviceStatus =  document.querySelector("#new-status").value
+
+
+    const requestBody = JSON.stringify({
+        id: deviceId,
+        status: deviceStatus
+    })
+
+    fetch("http://localhost:8000/update-device-status", {
+        body: requestBody,
+        headers: {
+            "Content-Type": "application/json"
+        },
+        method : "PUT"
+    }).then(function(response){
+        return response.text()
+    }).then(function(data){
+        console.log(data)
+    })
+
+})
+
+
+const updateColourForm = document.querySelector("#update-device-colour")
+updateForm.addEventListener("submit", function(e){
+    e.preventDefault()
+    const deviceId =  document.querySelector("#device-id-colour").value
+    const deviceColour =  document.querySelector("#new-colour").value
+
+
+    const requestBody = JSON.stringify({
+        id: deviceId,
+        colour: deviceColour
+    })
+
+    fetch("http://localhost:8000/update-device-colour", {
+        body: requestBody,
+        headers: {
+            "Content-Type": "application/json"
+        },
+        method : "PUT"
+    }).then(function(response){
+        return response.text()
+    }).then(function(data){
         console.log(data)
     })
 
