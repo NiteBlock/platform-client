@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="style.css">
+     
+    </head>
+    <body>
+        <h1>Cat Image Finder</h3>
+        <img id="image" height="60%">
+        <br/>
+        <div class="box">
+        <select name="category" id="choose-cat" aria-placeholder="Choose one.">
+            <option value="0">None</option>
+            <option value="1">Hats</option>
+            <option value="2">Space</option>
+            <option value="3">Funny</option>
+            <option value="4">Sunglasses</option>
+            <option value="5">Boxes</option>
+            <option value="6">Caturday</option>
+            <option value="7">Ties</option>
+        </select>
+        </div>
+        <br/>
+        <button class="button">
+                <span class="submit">Get a new cat.</span>
+                <span class="loading"><i class="fa fa-refresh">Loading...</i></span>
+                <span class="check"><i class="fa fa-check">Done!</i></span>
+        </button>
+        <script src="script.js"></script>
+    </body>
+</html>
