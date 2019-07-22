@@ -151,7 +151,7 @@ updateForm.addEventListener("submit", function(e){
 
 
 const updateColourForm = document.querySelector("#update-device-colour")
-updateForm.addEventListener("submit", function(e){
+updateColourForm.addEventListener("submit", function(e){
     e.preventDefault()
     const deviceId =  document.querySelector("#device-id-colour").value
     const deviceColour =  document.querySelector("#new-colour").value

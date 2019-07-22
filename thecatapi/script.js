@@ -42,7 +42,6 @@ button.addEventListener("click", function () {
 })
 
 
-const submit = document.querySelector('.submit');
 
 function toggleClass() {
     this.classList.toggle('active');
