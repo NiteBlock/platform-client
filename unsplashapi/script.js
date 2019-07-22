@@ -1,4 +1,4 @@
-const key = "5f38c464557c83ab13906403514f092f1e004b251a9842f931557df989e57751"
+const key = "INSERTUNSPLASHAPIKEY"
 let imageLabel = document.querySelector("#image-label")
 
 const button = document.querySelector('.button');
